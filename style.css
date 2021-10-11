@@ -16,7 +16,11 @@ main {
 .pizza {
     width: 500px;
     height: 500px;
-    background: radial-gradient(closest-side circle at center, #c9c296 80%, #867b55 90%, #b8a94f 100%);
+    /*background: radial-gradient(closest-side circle at center, #c9c296 80%, #867b55 90%, #b8a94f 100%);*/
     border-radius: 50%;
     position: relative;
+    background-image: url("img/testo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 107%;
 }
