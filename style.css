@@ -1,0 +1,22 @@
+@import url(reset.css);
+main {
+    max-width: 1024px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.constructor__components {
+    /*filter: grayscale(100%);*/
+}
+.x, .y {
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at center, red, transparent);
+    border-radius: 50%;
+}
+.pizza {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(closest-side circle at center, #c9c296 80%, #867b55 90%, #b8a94f 100%);
+    border-radius: 50%;
+    position: relative;
+}
