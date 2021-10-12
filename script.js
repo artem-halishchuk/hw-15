@@ -76,17 +76,23 @@ function price() {
     let pizzaComponents = document.querySelector('.constructor-pizza__list');
     let ketchup = document.getElementById('ketchup').value;
     let mayonnaise = document.getElementById('mayonnaise').value;
-    if (!arrPrice.length) arrPrice.push({name: 'Тесто', price: 20, number: 1});
-    let search = arrPrice.find(i => i.name === pizzaComponents.lastChild.textContent.trim());
-    if(!search) arrPrice.push({name: pizzaComponents.lastChild.textContent.trim(),
-                                price: parseFloat(pizzaComponents.lastChild.dataset.price),
-                                number: 1});
-    else {
+    if (!arrPrice.length) arrPrice.push({name: 'Тесто', price: 20, number: 1, index: arrPrice.length});
 
-    }
-    console.log(pizzaComponents.lastChild.textContent.trim());
-    console.log(arrPrice[0].name);
-    console.log(search);
+    let searchAdd = arrPrice.find(e => e.name === pizzaComponents.lastChild.textContent.trim());
+    if(!searchAdd) arrPrice.push({name: pizzaComponents.lastChild.textContent.trim(),
+                                price: parseFloat(pizzaComponents.lastChild.dataset.price),
+                                number: 1,
+                                index: arrPrice.length});
+    else arrPrice[searchAdd.index].number += 1;
+
+
+
+
+
+
+    //console.log(pizzaComponents.lastChild.textContent.trim());
+    //console.log(arrPrice[0].name);
+    console.log(arrPrice);
     //arrPrice.indexOf()
     //if (arrPrice.indexOf(pizzaComponents.lastChild.textContent))
 
@@ -95,10 +101,10 @@ function price() {
 
         items += e.textContent+e.dataset.price+'</br>';
     });
-    console.log(items);
+    //console.log(items);
     priceList.innerHTML = items;
 
-    console.log(arrPrice);
+    //console.log(arrPrice);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
