@@ -70,17 +70,35 @@ function activeSubmit() {
         return false;
     }
 }
+let arrPrice = [];
 function price() {
     let priceList = document.querySelector('.calculator-form__list');
-    let pizzaComponents = document.querySelector('.constructor-pizza__list').childNodes;
+    let pizzaComponents = document.querySelector('.constructor-pizza__list');
     let ketchup = document.getElementById('ketchup').value;
     let mayonnaise = document.getElementById('mayonnaise').value;
+    if (!arrPrice.length) arrPrice.push({name: 'Тесто', price: 20, number: 1});
+    let search = arrPrice.find(i => i.name === pizzaComponents.lastChild.textContent.trim());
+    if(!search) arrPrice.push({name: pizzaComponents.lastChild.textContent.trim(),
+                                price: parseFloat(pizzaComponents.lastChild.dataset.price),
+                                number: 1});
+    else {
+
+    }
+    console.log(pizzaComponents.lastChild.textContent.trim());
+    console.log(arrPrice[0].name);
+    console.log(search);
+    //arrPrice.indexOf()
+    //if (arrPrice.indexOf(pizzaComponents.lastChild.textContent))
+
     let items = '';
-    pizzaComponents.forEach(e => {
-        items += e.textContent;
+    pizzaComponents.childNodes.forEach(e => {
+
+        items += e.textContent+e.dataset.price+'</br>';
     });
     console.log(items);
     priceList.innerHTML = items;
+
+    console.log(arrPrice);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
