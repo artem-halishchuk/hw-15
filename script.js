@@ -45,56 +45,64 @@ function getPosOnPizza(mousePos) {
 }
 function activeComponents(e) {
     if (e.value === "0") {
-        //document.querySelector('.calculator-form__submit').disabled = true;
         document.querySelector('.constructor__components').style.filter = 'grayscale(100%)';
         document.querySelector('.constructor-sauces__form').style.filter = 'grayscale(100%)';
         return true;
     }
     else {
-        //document.querySelector('.calculator-form__submit').disabled = false;
         document.querySelector('.constructor__components').style.filter = 'grayscale(0%)';
         document.querySelector('.constructor-sauces__form').style.filter = 'grayscale(0%)';
-        document.querySelector('.constructor-sauces__form').childNodes.forEach(e => {
-            e.disabled = false;
-        });
         return false;
     }
 }
 function activeSubmit() {
     if (!document.querySelector('.constructor-pizza__list > li')) {
+        document.querySelector('.constructor-sauces__form').childNodes.forEach(e => e.disabled = true);
         document.querySelector('.calculator-form__submit').disabled = true;
         return true;
     }
     else {
+        document.querySelector('.constructor-sauces__form').childNodes.forEach(e => e.disabled = false);
         document.querySelector('.calculator-form__submit').disabled = false;
         return false;
     }
 }
 let arrPrice = [];
-function price() {
+function price(event) {
     let priceList = document.querySelector('.calculator-form__list');
     let pizzaComponents = document.querySelector('.constructor-pizza__list');
-    let ketchup = document.getElementById('ketchup').value;
-    let mayonnaise = document.getElementById('mayonnaise').value;
+    let sauces = document.querySelector('.constructor-sauces__form');
+
     arrPrice = [];
     if (!arrPrice.length) arrPrice.push({name: 'Тесто', price: 20, number: 1, index: arrPrice.length});
 
-    pizzaComponents.childNodes.forEach( e => {
+    pizzaComponents.childNodes.forEach(e => {
         let elementPizza = e;
-        let search = arrPrice.find(e => e.name === elementPizza.lastChild.textContent.trim());
-        if(!search) arrPrice.push({name: elementPizza.textContent.trim(),
+        let search = arrPrice.find(e => e.name === elementPizza.dataset.name);
+        if (!search) arrPrice.push({
+            name: elementPizza.dataset.name,
             price: parseFloat(elementPizza.dataset.price),
             number: 1,
-            index: arrPrice.length});
-        else  arrPrice[search.index].number += 1;
+            index: arrPrice.length
+        });
+        else arrPrice[search.index].number += 1;
+    });
+
+    sauces.childNodes.forEach(e => {
+        let elementSauces = e;
+        if(elementSauces.nodeType === 1 && elementSauces.matches('input')) {
+            if(!elementSauces.checked) return;
+            let search = arrPrice.find(e => e.name === elementSauces.dataset.name);
+            if (!search) arrPrice.push({
+                name: elementSauces.dataset.name,
+                price: parseFloat(elementSauces.dataset.price),
+                number: 1,
+                index: arrPrice.length
+            });
+            else arrPrice[search.index].number += 1;
+        }
     });
     console.log(arrPrice);
-
-    let items = '';
-    pizzaComponents.childNodes.forEach(e => {
-        items += e.textContent+e.dataset.price+'</br>';
-    });
-    priceList.innerHTML = items;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -164,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     sauces.addEventListener('click', e => {
         if (document.querySelector('.calculator-form__size').value === "0") return;
-        if(e.target.matches('input') || e.target.matches('label')) price();
+        if(e.target.matches('input')) price(event.target);
     })
 
     
