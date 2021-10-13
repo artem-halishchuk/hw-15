@@ -102,6 +102,7 @@ function price(event) {
             else arrPrice[search.index].number += 1;
         }
     });
+    if(!pizzaComponents.childNodes.length) arrPrice = [];
     console.log(arrPrice);
 }
 
