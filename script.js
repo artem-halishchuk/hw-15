@@ -81,11 +81,11 @@ function price(event) {
         let search = arrPrice.find(e => e.name === elementPizza.dataset.name);
         if (!search) arrPrice.push({
             name: elementPizza.dataset.name,
-            price: parseFloat(elementPizza.dataset.price),
+            price: parseFloat(elementPizza.dataset.price)*tempK,
             number: 1,
             index: arrPrice.length
         });
-        else arrPrice[search.index].number += 1;
+        else if(search) arrPrice[search.index].number += 1;
     });
 
     sauces.childNodes.forEach(e => {
@@ -95,26 +95,33 @@ function price(event) {
             let search = arrPrice.find(e => e.name === elementSauces.dataset.name);
             if (!search) arrPrice.push({
                 name: elementSauces.dataset.name,
-                price: parseFloat(elementSauces.dataset.price),
+                price: parseFloat(elementSauces.dataset.price)*tempK,
                 number: 1,
                 index: arrPrice.length
             });
             else arrPrice[search.index].number += 1;
         }
     });
+
     if(!pizzaComponents.childNodes.length) arrPrice = [];
-    console.log(arrPrice);
+
+}
+let tempK = 1;
+function changePrice(k, arr) {
+    if (!arr.length) return;
+    arr.map(e => {
+        let a = e.price * (1/tempK*k);
+        e.price = a.toFixed(2);
+
+    });
+    tempK = k;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     let sauces = document.querySelector('.constructor-sauces__form');
+    let size = document.querySelector('.calculator-form__size');
     pizza = document.querySelector('.constructor-pizza__list');
-    //console.log(getPizzaCircle());
     activeComponents(document.querySelector('.calculator-form__size'));
-    document.querySelector('.calculator-form__size').addEventListener('click', e => {
-        activeComponents(e.target);
-    })
-
 
     window.addEventListener('mousedown', e => {
         if (document.querySelector('.calculator-form__size').value === "0") {
@@ -169,11 +176,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             activeSubmit();
             price();
+            console.log(size.value);
+            changePrice(parseFloat(size.value), arrPrice);
+            console.log(arrPrice);
         }
     })
     sauces.addEventListener('click', e => {
-        if (document.querySelector('.calculator-form__size').value === "0") return;
-        if(e.target.matches('input')) price(event.target);
+        //if (document.querySelector('.calculator-form__size').value === "0") return;
+        if(e.target.matches('input')) {
+            price(event.target);
+            changePrice(size.value, arrPrice);
+        }
+        console.log(arrPrice);
+    })
+    size.addEventListener('click', e => {
+        activeComponents(e.target);
+        if(e.target.value !== "0") changePrice(e.target.value, arrPrice);
+        console.log(arrPrice);
     })
 
     
