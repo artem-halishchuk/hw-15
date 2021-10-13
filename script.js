@@ -32,7 +32,6 @@ function getPizzaCircle() {
     let center = new Point(cx, cy);
     return new Circle(center, rect.width/2)
 }
-
 function setDragTargetPos(point) {
     let rect = dragTarget.getBoundingClientRect();
     point.move(-rect.width/2, -rect.height/2);
@@ -67,15 +66,14 @@ function activeSubmit() {
         return false;
     }
 }
+
 let arrPrice = [];
 function price(event) {
-    let priceList = document.querySelector('.calculator-form__list');
     let pizzaComponents = document.querySelector('.constructor-pizza__list');
     let sauces = document.querySelector('.constructor-sauces__form');
-
     arrPrice = [];
-    if (!arrPrice.length) arrPrice.push({name: 'Тесто', price: 20, number: 1, index: arrPrice.length});
-
+    if(!pizzaComponents.childNodes.length) arrPrice = [];
+    if (!arrPrice.length) arrPrice.push({name: 'Тесто', price: 20*tempK, number: 1, index: arrPrice.length});
     pizzaComponents.childNodes.forEach(e => {
         let elementPizza = e;
         let search = arrPrice.find(e => e.name === elementPizza.dataset.name);
@@ -87,7 +85,6 @@ function price(event) {
         });
         else if(search) arrPrice[search.index].number += 1;
     });
-
     sauces.childNodes.forEach(e => {
         let elementSauces = e;
         if(elementSauces.nodeType === 1 && elementSauces.matches('input')) {
@@ -102,9 +99,6 @@ function price(event) {
             else arrPrice[search.index].number += 1;
         }
     });
-
-    if(!pizzaComponents.childNodes.length) arrPrice = [];
-
 }
 let tempK = 1;
 function changePrice(k, arr) {
@@ -124,17 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
     activeComponents(document.querySelector('.calculator-form__size'));
 
     window.addEventListener('mousedown', e => {
-        if (document.querySelector('.calculator-form__size').value === "0") {
-            //alert('Выберете размер пиццы');
-            return;
-        }
-
         let mousePoint = new Point(e.clientX, e.clientY);
-
         if (e.target.matches('.constructor-components__item')) {
             dragTarget = e.target.cloneNode(true);
             dragTarget.style.position = 'fixed';
-            //document.body.append(dragTarget);
             pizza.append(dragTarget);
             setDragTargetPos(mousePoint);
             
@@ -143,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
             dragTarget = e.target.cloneNode(true);
             e.target.remove();
             dragTarget.style.position = 'fixed';
-            //document.body.append(dragTarget);
             pizza.append(dragTarget);
             setDragTargetPos(mousePoint);
         }
@@ -162,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if(pizzaCircle.containsPoint(mousePos)) {
                 let newPos = getPosOnPizza(mousePos);
-                //console.log(newPos);
                 setDragTargetPos(newPos);
                 pizza.append(dragTarget);
 
@@ -176,13 +161,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             activeSubmit();
             price();
-            console.log(size.value);
             changePrice(parseFloat(size.value), arrPrice);
             console.log(arrPrice);
         }
     })
     sauces.addEventListener('click', e => {
-        //if (document.querySelector('.calculator-form__size').value === "0") return;
         if(e.target.matches('input')) {
             price(event.target);
             changePrice(size.value, arrPrice);
@@ -193,6 +176,20 @@ document.addEventListener('DOMContentLoaded', () => {
         activeComponents(e.target);
         if(e.target.value !== "0") changePrice(e.target.value, arrPrice);
         console.log(arrPrice);
+    })
+    let priceList = document.querySelector('.calculator-form__list');
+    let submit = document.querySelector('.calculator-form__submit');
+    let pizzaComponents = document.querySelector('.constructor-pizza__list');
+    submit.addEventListener('click', () => {
+        let a = '';
+        let totalPrice = 0;
+        arrPrice.map(e => {
+            totalPrice += parseFloat((e.price*e.number));
+            a += e.name+' '+e.price+' x '+e.number+' = '+(e.price*e.number).toFixed(2)+';</br>';
+        })
+        a += 'Итого_________' + (totalPrice).toFixed(2);
+        priceList.innerHTML = a;
+        pizzaComponents.innerHTML = '';
     })
 
     
