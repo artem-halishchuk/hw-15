@@ -45,12 +45,13 @@ function getPosOnPizza(mousePos) {
 function activeComponents(e) {
     if (e.value === "0") {
         document.querySelector('.constructor__components').style.filter = 'grayscale(100%)';
-        document.querySelector('.constructor-sauces__form').style.filter = 'grayscale(100%)';
+        document.querySelector('.constructor-sauces').style.filter = 'grayscale(100%)';
         return true;
     }
     else {
         document.querySelector('.constructor__components').style.filter = 'grayscale(0%)';
-        document.querySelector('.constructor-sauces__form').style.filter = 'grayscale(0%)';
+        document.querySelector('.constructor-sauces').style.filter = 'grayscale(0%)';
+        //constructor__sauces
         return false;
     }
 }
@@ -65,6 +66,9 @@ function activeSubmit() {
         document.querySelector('.calculator-form__submit').disabled = false;
         return false;
     }
+}
+function popup(text) {
+
 }
 
 let arrPrice = [];
@@ -118,17 +122,20 @@ document.addEventListener('DOMContentLoaded', () => {
     activeComponents(document.querySelector('.calculator-form__size'));
 
     window.addEventListener('mousedown', e => {
+        if (document.querySelector('.calculator-form__size').value === "0") {
+            //alert('Выберете размер пиццы');
+            return;
+        }
         let mousePoint = new Point(e.clientX, e.clientY);
-        if (e.target.matches('.constructor-components__item')) {
-            dragTarget = e.target.cloneNode(true);
+        if (e.target.closest('.constructor-components__item')) {
+            dragTarget = e.target.closest('.constructor-components__item').cloneNode(true);
             dragTarget.style.position = 'fixed';
             pizza.append(dragTarget);
             setDragTargetPos(mousePoint);
-            
         }
-        if (e.target.matches('.constructor-pizza__list > .constructor-components__item-pizza')) {
-            dragTarget = e.target.cloneNode(true);
-            e.target.remove();
+        if (e.target.closest('.constructor-components__item-pizza')) {
+            dragTarget = e.target.closest('.constructor-components__item-pizza').cloneNode(true);
+            e.target.closest('.constructor-components__item-pizza').remove();
             dragTarget.style.position = 'fixed';
             pizza.append(dragTarget);
             setDragTargetPos(mousePoint);
@@ -180,9 +187,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let priceList = document.querySelector('.calculator-form__list');
     let submit = document.querySelector('.calculator-form__submit');
     let pizzaComponents = document.querySelector('.constructor-pizza__list');
+
     submit.addEventListener('click', () => {
         let a = '';
         let totalPrice = 0;
+        a += 'Размер пиццы: '+document.querySelector('.calculator-form__size').value+'</br>';
         arrPrice.map(e => {
             totalPrice += parseFloat((e.price*e.number));
             a += e.name+' '+e.price+' x '+e.number+' = '+(e.price*e.number).toFixed(2)+';</br>';
@@ -190,7 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
         a += 'Итого_________' + (totalPrice).toFixed(2);
         priceList.innerHTML = a;
         pizzaComponents.innerHTML = '';
+        document.querySelector('.calculator-form__size').value = 0;
+        activeComponents(document.querySelector('.calculator-form__size'));
+        activeSubmit();
     })
-
-    
 })

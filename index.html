@@ -4,49 +4,53 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width">
 	<title>Document</title>
-	<!-- <script src="script.js"></script> -->
 	<script src="script.js"></script>
 	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="reset.css">
 </head>
 <body>
+<header>
+	<h1>Конструктор пиццы</h1>
+</header>
 <main>
-	<header>
-		<h1>Конструктор пиццы</h1>
-	</header>
 
-	<section class="main">
+	<section class="container">
+		<h2>
+			<p>🍕🍕🍕 Собери свою пиццу!!! 🍕🍕🍕</p>
+		</h2>
 		<div class="constructor">
 			<div class="constructor__components constructor-components">
+				<h3>
+					<p>🍕 Ингредиенты 🍕</p>
+				</h3>
 				<ul class="constructor-components__list">
-					<li class="constructor-components__item" data-price="10" data-name="Салями">
+					<li class="constructor-components__item constructor-components__item-salami" data-price="10" data-name="Салями">
 						<p>Салями</p>
 					</li>
-					<li class="constructor-components__item" data-price="12" data-name="Куриное мясо">
-						<p>Куриное мясо</p>
+					<li class="constructor-components__item constructor-components__item-chicken" data-price="12" data-name="Куриное мясо">
+						<p>Курица</p>
 					</li>
-					<li class="constructor-components__item" data-price="15" data-name="Ветчина">
+					<li class="constructor-components__item constructor-components__item-ham" data-price="15" data-name="Ветчина">
 						<p>Ветчина</p>
 					</li>
-					<li class="constructor-components__item" data-price="13" data-name="Бекон">
+					<li class="constructor-components__item constructor-components__item-bacon" data-price="13" data-name="Бекон">
 						<p>Бекон</p>
 					</li>
-					<li class="constructor-components__item" data-price="5" data-name="Помидоры">
+					<li class="constructor-components__item constructor-components__item-tomatoes" data-price="5" data-name="Помидоры">
 						<p>Помидоры</p>
 					</li>
-					<li class="constructor-components__item" data-price="7" data-name="Оливки">
+					<li class="constructor-components__item constructor-components__item-olives" data-price="7" data-name="Оливки">
 						<p>Оливки</p>
 					</li>
-					<li class="constructor-components__item" data-price="7" data-name="Грибы">
+					<li class="constructor-components__item constructor-components__item-mushrooms" data-price="7" data-name="Грибы">
 						<p>Грибы</p>
 					</li>
-					<li class="constructor-components__item" data-price="20" data-name="Пармезан">
+					<li class="constructor-components__item constructor-components__item-parmesan" data-price="20" data-name="Пармезан">
 						<p>Пармезан</p>
 					</li>
-					<li class="constructor-components__item" data-price="25" data-name="ДорБлю">
+					<li class="constructor-components__item constructor-components__item-dorblu" data-price="25" data-name="ДорБлю">
 						<p>ДорБлю</p>
 					</li>
-					<li class="constructor-components__item" data-price="17" data-name="Сыр фета">
+					<li class="constructor-components__item constructor-components__item-fetaCheese" data-price="17" data-name="Сыр фета">
 						<p>Сыр фета</p>
 					</li>
 				</ul>
@@ -57,6 +61,7 @@
 			</div>
 
 			<div class="constructor__sauces constructor-sauces">
+				<h3>🍕 Cоусы 🍕</h3>
 				<form class="constructor-sauces__form">
 					<input type="checkbox" id="ketchup" name="ketchup" value="ketchup" data-price="5" data-name="Кетчуп" checked disabled>
 					<label for="ketchup">Кетчуп</label>
@@ -65,16 +70,17 @@
 				</form>
 			</div>
 		</div>
+
 		<div class="calculator">
 			<div class="calculator__price">
 
 			</div>
 			<div class="calculator__form calculator-form">
-				<select name="" id="" class="calculator-form__size">
+				<select class="calculator-form__size">
 					<option value="0" disabled selected>Выберете размер пиццы</option>
-					<option value="1">25см.</option>
-					<option value="1.2">30см.</option>
-					<option value="1.5">38см.</option>
+					<option value="1" data-size="маленькая (25см)">маленькая (25см)</option>
+					<option value="1.2" data-size="маленькая (30см)">средняя (30см)</option>
+					<option value="1.5" data-size="маленькая (38см)">большая (38см)</option>
 				</select>
 				<button class="calculator-form__submit" disabled>Заказать</button>
 
@@ -82,7 +88,6 @@
 					<ul class="calculator-form__list">
 						
 					</ul>
-
 				</div>
 			</div>
 		</div>
@@ -92,6 +97,12 @@
 
 	<div class="pizza">
 
+	</div>
+	<div class="popup">
+		<div class="popup__content">
+			<button class="popup_close"></button>
+			<p class="popup__massege"></p>
+		</div>
 	</div>
 </main>
 
@@ -108,3 +119,4 @@
 <!--parmesan-->
 <!--dorBlue-->
 <!--fetaCheese-->
+<!-- https://www.pngwing.com/ru/search?q=%D0%BE%D0%BB%D0%B8%D0%B2%D0%BA%D0%B8 -->

@@ -1,21 +1,142 @@
 @import url(reset.css);
-main {
+@import url(popup.css);
+* {
+
+}
+html {
+    color: black;
+    font-family: 'Verdana', sans-serif;
+    font-size: 10px;
+    /*background-color: #f7f6f5;*/
+}
+body {
+    background-color: #bdbdbd;
+}
+button {
+    font-size: 1.7rem;
+    font-weight: 700;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: rgb(224, 224, 224);
+    padding: 6px;
+    /*margin-bottom: 20px;*/
+    box-shadow: 0px 2px 10px -2px rgba(0, 0, 0, 0.28);
+}
+select {
+    width: 290px;
+    height: 44px;
+    border-radius: 10px;
+    margin: 5px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 4px;
+    font-size: 2rem;
+}
+button:disabled {
+    color: #bdbdbd;
+}
+button:focus, select.focus {
+    border: 2px solid rgb(145, 155, 158);
+}
+button:hover, select:hover {
+    /*background-color: rgba(154, 154, 154, 0.82);*/
+    border: 2px solid rgb(145, 155, 158);
+    /*border: 2px solid rgb(92, 96, 97);*/
+}
+button:active, select.active {
+    border: 2px solid transparent;
+    box-shadow: 4px 6px 10px 2px rgba(0, 0, 0, 0.28);
+    background-color: rgb(224, 224, 224);
+}
+
+header {
+    padding-top: 40px;
+    padding-bottom: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #FFA726;
+    box-shadow: 0px 13px 43px 5px rgba(0, 0, 0, 0.11) inset;
+}
+h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    text-shadow: 3px 3px 5px rgba(76, 76, 76, 0.45);;
+}
+h2, h3 {
+    width: 100%;
+    text-align: center;
+    background-color: #323232;
+    color: white;
+    font-size: 1.2rem;
+    box-shadow: 0px 9px 17px -6px rgba(0, 0, 0, 0.32);
+    padding: 8px;
+}
+h3 {
+    padding: 8px 0;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     max-width: 1024px;
     margin-right: auto;
     margin-left: auto;
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0px 9px 57px 4px rgba(0, 0, 0, 0.17);
+}
+.constructor {
+    margin-top: 10px;
+    display: grid;
+    grid-template-rows:  auto 1fr;
+    grid-template-columns: 214px auto;
+    grid-template-areas:    "components pizza"
+                            "sauces pizza";
 }
 .constructor__components {
-    /*filter: grayscale(100%);*/
+    grid-area: components;
+    border: 2px solid black;
+    padding-bottom: 6px;
 }
-.constructor-components__item, .constructor-components__item-pizza {
-    width: 50px;
-    height: 50px;
-    background: radial-gradient(circle at center, red, transparent);
-    border-radius: 50%;
+
+.constructor-sauces {
+    border: 2px solid black;
+    padding-bottom: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.constructor-sauces__form {
+    margin-top: 4px;
+}
+.constructor-sauces__form > input {
+    width: 15px;
+    height: 15px;
+}
+.constructor-sauces__form > label {
+    font-size: 1.8rem;
+}
+
+.constructor-components__list {
+    margin-top: 5px;
 }
 .constructor__pizza {
-    width: 300px;
-    height: 300px;
+    grid-area: pizza;
+}
+.constructor__sauces {
+    grid-area: sauces;
+}
+.calculator {
+    grid-area: calculator;
+}
+.calculator {
+    /*background-color: #b3d4fc;*/
+}
+.constructor__pizza {
+    width: 700px;
+    height: 700px;
     /*background: radial-gradient(closest-side circle at center, #c9c296 80%, #867b55 90%, #b8a94f 100%);*/
     border-radius: 50%;
     position: relative;
@@ -28,3 +149,74 @@ main {
     width: 100%;
     height: 100%;
 }
+.constructor-components__list {
+    width: 100%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    row-gap: 45px;
+    column-gap: 10px;
+}
+.constructor-components__item,
+.constructor-components__item-pizza {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.constructor-components__item-pizza {
+    background-color: rgba(128, 126, 117, 0.09);
+    box-shadow: 4px 4px 76px 9px rgba(34, 60, 80, 0.04);
+}
+.constructor-components__item p,
+.constructor-components__item-pizza p {
+    font-size: 1.8rem;
+    text-align: center;
+    color: rgba(10, 10, 10, 0.8);
+    background-color: rgba(243, 244, 246, 0.7);
+    border-radius: 10px;
+    padding: 2px;
+}
+.constructor-components__item-salami {
+    background-image: url('img/salami.png');  
+}
+.constructor-components__item-chicken {
+    background-image: url('img/chicken.png');
+}
+.constructor-components__item-ham {
+    background-image: url('img/ham.png');
+}
+.constructor-components__item-bacon {
+    background-image: url('img/bacon.png');
+}
+.constructor-components__item-tomatoes {
+    background-image: url('img/tomatoes.png');
+}
+.constructor-components__item-olives {
+    background-image: url('img/olives.png');
+}
+.constructor-components__item-mushrooms {
+    background-image: url('img/mushrooms.png');
+}
+.constructor-components__item-parmesan {
+    background-image: url('img/parmesan.png');
+}
+.constructor-components__item-dorblu {
+    background-image: url('img/dorblu.png');
+}
+.constructor-components__item-fetaCheese {
+    background-image: url('img/fetaCheese.png');
+}
+
+.calculator__form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
