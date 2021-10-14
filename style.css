@@ -89,6 +89,7 @@ h3 {
 .constructor {
     margin-top: 10px;
     display: grid;
+    align-items: center;
     grid-template-rows:  auto 1fr;
     grid-template-columns: 214px auto;
     grid-template-areas:    "components pizza"

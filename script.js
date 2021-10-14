@@ -67,7 +67,36 @@ function activeSubmit() {
         return false;
     }
 }
-function popup(text) {
+function popup(price) {
+    let popup = document.querySelector('.popup');
+    popup.style.display = 'block';
+    let close = document.querySelector('.popup_close');
+
+    console.log(price);
+    let content = document.querySelector('.popup__content');
+    let table = document.createElement("table");
+    table.classList.add('popup__price');
+
+    let caption = document.createElement("caption");
+    table.append(caption);
+    caption.innerHTML += "Чек"
+    table.innerHTML += '<tr><th>Наименование</th><th>Количество</th><th>Стоимость</th><th>Сумма (грн.)</th></tr>';
+    table.innerHTML += '<tr><th colspan="4">Ингредиенты</th></tr>';
+    let totalPrice = 0;
+    price.map((e, i) => {
+        if (i === price.length-2) table.innerHTML += '<tr><th colspan="4">Соусы</th></tr>';
+        table.innerHTML += `<tr><td>${e.name}</td><td>${e.number}</td><td>${e.price}</td><td>${(e.number*e.price).toFixed(2)}</td></tr>`;
+        totalPrice += e.number*e.price;
+    })
+    table.innerHTML += `<tr><th colspan="3">Итого</th><th>${totalPrice.toFixed(2)} грн.</th></tr>`;
+    //table.append.document.createElement("caption"); = '<caption>Меню ресторана "Ромашка"</caption>'
+
+
+    content.append(table);
+    close.addEventListener('click', () => {
+        popup.style.display = 'none';
+        table.remove();
+    });
 
 }
 
@@ -120,7 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let size = document.querySelector('.calculator-form__size');
     pizza = document.querySelector('.constructor-pizza__list');
     activeComponents(document.querySelector('.calculator-form__size'));
-
     window.addEventListener('mousedown', e => {
         if (document.querySelector('.calculator-form__size').value === "0") {
             //alert('Выберете размер пиццы');
@@ -197,10 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
             a += e.name+' '+e.price+' x '+e.number+' = '+(e.price*e.number).toFixed(2)+';</br>';
         })
         a += 'Итого_________' + (totalPrice).toFixed(2);
-        priceList.innerHTML = a;
+        //priceList.innerHTML = a;
         pizzaComponents.innerHTML = '';
         document.querySelector('.calculator-form__size').value = 0;
         activeComponents(document.querySelector('.calculator-form__size'));
         activeSubmit();
+        popup(arrPrice);
     })
 })
