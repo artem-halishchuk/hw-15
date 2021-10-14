@@ -77,7 +77,7 @@ function popup(price) {
     let table = document.createElement("table");
     table.classList.add('popup__price');
 
-    let caption = document.createElement("caption");
+    let caption = document.createElement('caption');
     table.append(caption);
     caption.innerHTML += "Чек"
     table.innerHTML += '<tr><th>Наименование</th><th>Количество</th><th>Стоимость</th><th>Сумма (грн.)</th></tr>';
@@ -89,17 +89,17 @@ function popup(price) {
         totalPrice += e.number*e.price;
     })
     table.innerHTML += `<tr><th colspan="3">Итого</th><th>${totalPrice.toFixed(2)} грн.</th></tr>`;
-    //table.append.document.createElement("caption"); = '<caption>Меню ресторана "Ромашка"</caption>'
-
-
     content.append(table);
     close.addEventListener('click', () => {
-        popup.style.display = 'none';
-        table.remove();
+        popup.classList.add('popup-hidden');
+        setTimeout(() => {
+            popup.classList.remove('popup-hidden');
+            popup.style.display = 'none';
+            table.remove();
+        },700);
     });
 
 }
-
 let arrPrice = [];
 function price(event) {
     let pizzaComponents = document.querySelector('.constructor-pizza__list');
